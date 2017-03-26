@@ -25,8 +25,9 @@ public class Database {
     protected static final Boolean useless = Boolean.FALSE;
 
     static {
-        db = DBMaker.fileDB("team-finder.db")
+        db = DBMaker.fileDB("/Users/the-magical-llamicorn/team-finder.db")
                 .fileMmapEnableIfSupported()
+                .closeOnJvmShutdown()
                 .make();
 
         users = db.hashMap("users")

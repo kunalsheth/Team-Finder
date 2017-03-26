@@ -5,7 +5,7 @@ package com.teamfinder.main.server;
  */
 public class Index {
 
-    public String generateIndex() {
+    public static String generateIndex() {
         return "<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
                 "<head>\n" +
@@ -15,12 +15,12 @@ public class Index {
                 "<body>\n" +
                 "\n" +
                 "<form action=\"/\" method=\"POST\">\n" +
-                "    Name: <input type=\"text\"><br>\n" +
-                "    Email: <input type=\"text\"><br>\n" +
-                "    Age: <input type=\"number\"><br>\n" +
-                "    Latitude: <input type=\"number\"><br>\n" +
-                "    Longitude: <input type=\"number\"><br>\n" +
-                "    Phone Number: <input type=\"tel\"><br>\n" +
+                "    Name: <input name=\"name\" type=\"text\"><br>\n" +
+                "    Email: <input name=\"email\" type=\"text\"><br>\n" +
+                "    Age: <input name=\"age\" type=\"number\"><br>\n" +
+                "    Latitude: <input name=\"latitude\" type=\"number\"><br>\n" +
+                "    Longitude: <input name=\"longitude\" type=\"number\"><br>\n" +
+                "    Phone Number: <input name=\"phone\" type=\"tel\"><br>\n" +
                 "    <input type=\"submit\">\n" +
                 "</form>\n" +
                 "\n" +

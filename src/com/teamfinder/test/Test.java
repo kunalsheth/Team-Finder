@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.LongStream;
 
 /**
  * Created by the-magical-llamicorn on 3/26/17.
@@ -36,11 +37,11 @@ public class Test {
 
     public static void main(final String[] args) {
         System.out.println("DB Size " + Database.getUserCollection().size());
-        for (int i = 0; i < 15; i++) {
+        LongStream.range(0, 10_000).parallel().forEach(i -> {
             Database.add(new User() {
-                final Location location = Location.newLocationDegrees((Math.random() * -180) + 90, (Math.random() * -360) + 180);
+                final Location location = Math.random() > 0.5 ? Location.newLocationDegrees(((Math.random() * -18) + 9 + 37.548706), (Math.random() * -36) + 18 + -122.059283) : Location.newLocationDegrees(((Math.random() * -0.018) + 0.09 + 37.7989733), (Math.random() * -0.036) + 0.018 + -122.4836963);
                 final double personality = Math.random();
-                final String name = names.get((int) (Math.random() * names.size()));
+                final String name = names.get((int) (Math.random() * names.size())) + " " + names.get((int) (Math.random() * names.size())) + " " + names.get((int) (Math.random() * names.size()));
 
                 public String email() {
                     return name.replace("\\s+", "_") + "@teamfinder.com";
@@ -74,7 +75,8 @@ public class Test {
                     return (long) ((Math.random() * (999_999_9999L - 100_000_0000L)) + 100_000_0000L);
                 }
             });
-        }
+        });
+
         System.out.println("DB Size " + Database.getUserCollection().size());
 
         final User ourUser = Database.getUsers().findAny().get();
@@ -86,7 +88,5 @@ public class Test {
         );
         Recommender.recommend(ourUser, 10).map(o -> new Gson().toJson(o)).forEach(System.out::println);
 
-        Database.db.commit();
-        Database.db.close();
     }
 }

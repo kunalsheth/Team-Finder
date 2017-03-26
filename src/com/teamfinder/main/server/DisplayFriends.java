@@ -7,12 +7,11 @@ import java.util.stream.Stream;
 public class DisplayFriends {
 
     public static String generateFriendsTable(final Stream<User> users) {
-        final StringBuilder builder = new StringBuilder(friendsTablePrefix);
-        users
+        return friendsTablePrefix
+                + users
                 .map(DisplayFriends::friendsTableContent)
-                .forEach(builder::append);
-        builder.append(friendsTableSuffix);
-        return builder.toString();
+                .reduce((a, b) -> a + b)
+                + friendsTableSuffix;
     }
 
     protected static final String friendsTablePrefix =
@@ -38,7 +37,7 @@ public class DisplayFriends {
                 "        <td>" + user.age() + "</td>\n" +
                 "        <td>" + user.email() + "</td>\n" +
                 "        <td>" + user.phoneNumber() + "</td>\n" +
-                "        <td><a href=\"https://www.google.com/maps/preview/@" + user.location().latitude + "," + user.location().longitude + ",10z\"></td>\n" +
+                "        <td><a href=\"https://www.google.com/maps/preview/@" + Math.toDegrees(user.location().latitude) + "," + Math.toDegrees(user.location().longitude) + ",10z\">Location</a></td>\n" +
                 "    </tr>";
     }
 
